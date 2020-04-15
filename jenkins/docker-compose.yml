@@ -1,0 +1,22 @@
+version: "2.4"
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - home:/var/jenkins_home
+    networks:
+      tcdh:
+        aliases:
+          - jenkins
+    environment:
+      JAVA_OPTS: -Dhudson.footerURL=http://ali2.liushiqi.top
+    privileged: true
+networks:
+  tcdh:
+    external: true
+volumes:
+  home:

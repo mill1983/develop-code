@@ -1,0 +1,40 @@
+version: "2.1"
+services: 
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    hostname: mysql
+    labels:
+      com.example.description: "mysql"
+    ports:
+      - "3306:3306"
+    networks:
+      develop-code:
+        aliases: 
+          - mysql
+    command: mysqld --lower_case_table_names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --default-authentication-plugin=mysql_native_password
+    env_file: ./gogs_mysql.conf
+    volumes:
+      - "/opt/mysql/conf:/etc/mysql/conf.d"
+      - "/opt/mysql/logs:/logs"
+      - "/opt/mysql/data:/var/lib/mysql"
+      - "/opt/mysql/outer:/outer"
+    stdin_open: true
+    tty: true
+  gogs:
+    container_name: gogs
+    image: gogs/gogs
+    ports:
+      - "10022:22"
+      - "10080:3000"
+    volumes:
+      - /opt/docker/gogs/:/data
+    depends_on:
+      - mysql
+    networks:
+      develop-code:
+        aliases:
+          - gogs
+networks:
+  develop-code:
+
