@@ -22,3 +22,9 @@
 
 ### 相关问题的解决
 - Jenkins 插件下载问题使用清华镜像`https://mirrors.tuna.tsinghua.edu.cn/jenkins/plugins/`
+
+
+## 相关使用说明
+1. gogs
+  - [配置文件:gogs_mysql.conf](./docker-compose/gogs_mysql.conf)
+  - [安装说明](https://github.com/mill1983/develop-code/wiki/gogs%E5%AE%89%E8%A3%85%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E)
