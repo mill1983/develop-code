@@ -13,7 +13,7 @@ services:
         aliases: 
           - mysql
     command: mysqld --lower_case_table_names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --default-authentication-plugin=mysql_native_password
-    env_file: ./gogs_mysql.conf
+    env_file: gogs_mysql.conf
     volumes:
       - "/opt/mysql/conf:/etc/mysql/conf.d"
       - "/opt/mysql/logs:/logs"
@@ -35,6 +35,25 @@ services:
       develop-code:
         aliases:
           - gogs
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:2.229-centos
+    ports:
+      - "10081:8080"
+      - "50000:50000"
+    volumes:
+      - home:/var/jenkins_home
+      - ./hosts:/etc/hosts
+    networks:
+      develop-code:
+        aliases:
+          - jenkins
+    environment:
+      JAVA_OPTS: -Dhudson.footerURL=http://www.liuxiaoyi.com.cn
+    privileged: true
 networks:
   develop-code:
+volumes:
+  home:
+        
 
